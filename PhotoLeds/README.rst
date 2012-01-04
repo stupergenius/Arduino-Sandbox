@@ -5,4 +5,4 @@ PhotoLeds is a simple schetch that uses the input from photocell to light a bank
 
 .. image:: http://media.bensnider.com/images/sketches/PhotoLeds.jpg
 
-.. _See it in action: http://youtube.com/?v=
+.. _See it in action: http://www.youtube.com/watch?v=GJ3j0sIO1x4
