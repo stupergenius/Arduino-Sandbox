@@ -23,6 +23,7 @@ void loop(void) {
   photocellReading = analogRead(photocellPin);
   int ledIntensity = map(photocellReading, photoLow, photoHigh, maxIntensity, 0);
   ledIntensity = min(maxIntensity, max(0, ledIntensity)); // clamp the intensity to supported values
+  Serial.println(ledIntensity);
   
   // There must be [0, numLeds-1] on (HIGH) and at most 1 partially on. The rest are off.
   int numOn = floor(ledIntensity / 255);
@@ -30,13 +31,15 @@ void loop(void) {
   for (ledIndex=0; ledIndex<numOn; ledIndex++) {
     analogWrite(ledPins[ledIndex], 255);
   }
-  int remainingIntensity = ledIntensity % 255;
-  analogWrite(ledPins[ledIndex], remainingIntensity);
-  ledIndex++;
-  // turn off the leds that shouldnt be on at all
-  for (ledIndex; ledIndex<numLeds; ledIndex++) {
-    analogWrite(ledPins[ledIndex], 0);
+  if (ledIndex < numLeds - 1) {
+    int remainingIntensity = ledIntensity % 255;
+    analogWrite(ledPins[ledIndex], remainingIntensity);
+    ledIndex++;
+    // turn off the leds that shouldnt be on at all
+    for (ledIndex; ledIndex<numLeds; ledIndex++) {
+      analogWrite(ledPins[ledIndex], 0);
+    }
   }
   
-  delay(50);
+  delay(100);
 }
