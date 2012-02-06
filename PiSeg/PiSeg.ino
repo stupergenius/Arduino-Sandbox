@@ -3,6 +3,7 @@
 
 // encode the on/off state of the LED segments for the characters 
 // '0' to '9' into the bits of the bytes
+// idea from http://totusterra.com/index.php/2009/09/07/connecting-a-7-segment-led-to-the-arduin
 const byte numDef[10] = {126, 48, 109, 121, 51, 91, 95, 112, 127, 115};
 
 // store a table of pin numbers
@@ -58,6 +59,7 @@ void setSegments(byte segments) {
   // for each of the segments of the LED
   for (int s = 0; s < numSegs; s++) {
     int bitVal = bitRead(segments, s); // grab the bit 
+    // the bytes come back reversed for some reason (not...notted), so we apply them in reverse order here
     digitalWrite(segPins[numSegs - 1 - s], bitVal); // set the segment
   }
 }
